@@ -13,12 +13,10 @@ export const addTodo = async todo => {
     referrer: "no-referrer" // *client, no-referrer
   });
 
-  return data;
+  return data.json();
 };
 
 export const getTodos = async () => {
-  const data = await new Promise(function(resolve, reject) {
-    fetch("http://localhost:8081/api/facets").then(d => resolve(d.json()));
-  });
-  return data;
+  const data = await fetch("http://localhost:8081/api/facets");
+  return data.json();
 };
