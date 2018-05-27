@@ -1,10 +1,19 @@
-export default (state = { todos: [], todo: { name: "" } }, action) => {
+import { fromJS } from "immutable";
+import { UPDATE, LIST_FETCHED } from "./constants";
+
+const initialState = fromJS({ todos: [], todo: { name: "" } });
+
+const todoAppReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "update":
-      return { ...state, todo: { ...state.todo, name: action.name } };
-    case "list_fetched":
-      return { ...state, todos: action.todos };
+    case UPDATE:
+      return state.setIn(["todo", "name"], action.name);
+    case LIST_FETCHED:
+      return state
+        .setIn(["todos"], fromJS(action.todos))
+        .setIn(["todo", "name"], "");
     default:
       return state;
   }
 };
+
+export default todoAppReducer;
