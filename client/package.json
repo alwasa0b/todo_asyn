@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "babel-eslint": "^8.2.3",
+    "eslint-config-react-app": "^2.1.0",
     "immutable": "^3.8.2",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
