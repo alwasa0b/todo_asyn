@@ -1,6 +1,6 @@
 export const addTodo = async todo => {
-  const data = await fetch("http://localhost:8081/api/facets", {
-    body: JSON.stringify({ todo }), // must match 'Content-Type' header
+  const data = await fetch("http://localhost:8081/api/todos", {
+    body: JSON.stringify(todo), // must match 'Content-Type' header
     cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
     credentials: "same-origin", // include, same-origin, *omit
     headers: {
@@ -17,6 +17,6 @@ export const addTodo = async todo => {
 };
 
 export const getTodos = async () => {
-  const data = await fetch("http://localhost:8081/api/facets");
+  const data = await fetch("http://localhost:8081/api/todos");
   return data.json();
 };
