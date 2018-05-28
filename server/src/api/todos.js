@@ -17,7 +17,6 @@ export default ({ config, db }) =>
 
     /** GET / - List all entities */
     index({ params }, res) {
-      console.log(res);
       res.json(todos);
     },
 

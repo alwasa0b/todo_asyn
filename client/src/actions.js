@@ -1,5 +1,11 @@
-import { UPDATE, ADD, LIST_FETCHED } from "./constants";
+import { UPDATE, ADD, LIST_FETCHED, EDIT, SAVE } from "./constants";
 
-export const update = text => ({ type: UPDATE, text });
+export const update = ({ id = "-1", text }) => ({
+  type: UPDATE,
+  todo: { id, text }
+});
+
 export const add = () => ({ type: ADD });
+export const edit = id => ({ type: EDIT, id });
+export const save = () => ({ type: SAVE });
 export const listFetched = todos => ({ type: LIST_FETCHED, todos });

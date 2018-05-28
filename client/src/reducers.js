@@ -1,16 +1,25 @@
 import { fromJS } from "immutable";
-import { UPDATE, LIST_FETCHED } from "./constants";
+import { UPDATE, LIST_FETCHED, EDIT } from "./constants";
 
-const initialState = fromJS({ todos: [], todo: { text: "" } });
+const initialState = fromJS({
+  todos: { "-1": { id: "-1", text: "" } },
+  editId: -1
+});
 
 const todoAppReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE:
-      return state.setIn(["todo", "text"], action.text);
+      return state.mergeIn(["todos", action.todo.id], fromJS(action.todo));
     case LIST_FETCHED:
       return state
-        .setIn(["todos"], fromJS(action.todos))
-        .setIn(["todo", "text"], "");
+        .setIn(
+          ["todos"],
+          fromJS(action.todos.reduce((p, n) => ({ ...p, [n.id]: n }), {}))
+        )
+        .setIn(["todos", "-1"], fromJS({ id: "-1", text: "" }))
+        .set("editId", "-1");
+    case EDIT:
+      return state.set("editId", action.id);
     default:
       return state;
   }
