@@ -21,7 +21,6 @@ export function* saveTodoSaga() {
     const state = yield select();
     const todo = makeEditTodoSelector()(state);
     yield call(saveTodo, todo);
-    console.log("Test");
     const todos = yield call(getTodos);
     yield put(listFetched(todos));
   } catch (error) {

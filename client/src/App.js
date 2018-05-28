@@ -23,8 +23,8 @@ const App = ({
     <button onClick={addTodo}>Add</button>
     <ul>
       {thisTodos.map((todo, i) => (
-        <li key={i} onDoubleClick={() => editId === 0 || edit(todo.id)}>
-          {editId === i ? (
+        <li key={i} onDoubleClick={() => editId > -1 || edit(todo.id)}>
+          {editId === todo.id ? (
             <input
               onKeyDown={({ keyCode }) => keyCode !== 13 || save()}
               value={todo.text}

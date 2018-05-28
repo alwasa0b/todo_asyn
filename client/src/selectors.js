@@ -12,7 +12,7 @@ const makeTodoSelector = () =>
 const makeEditTodoSelector = () =>
   createSelector(selectEditedTodo, state => state.toJS());
 
-const selectEditId = state => Number(state.get("editId"));
+const selectEditId = state => state.get("editId");
 
 const makeTodosSelector = () =>
   createSelector(selectTodos, state => {
