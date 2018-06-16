@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { add, update, edit, save } from "./actions";
+import { add, update, edit, save, remove } from "./actions";
 import { makeTodoSelector, makeTodosSelector, selectEditId } from "./selectors";
 
 const App = ({
@@ -11,7 +11,8 @@ const App = ({
   addTodo,
   updateTodo,
   edit,
-  save
+  save,
+  remove
 }) => (
   <div>
     <input
@@ -33,7 +34,9 @@ const App = ({
               }
             />
           ) : (
-            todo.text
+            <div>
+              <i className="fas fa-times" onClick={() => remove(todo.id)} /> {todo.text}
+            </div>
           )}
         </li>
       ))}
@@ -51,6 +54,7 @@ export default connect(
     addTodo: () => dispatch(add()),
     updateTodo: text => dispatch(update(text)),
     edit: id => dispatch(edit(id)),
-    save: () => dispatch(save())
+    save: () => dispatch(save()),
+    remove: (id) => dispatch(remove(id))
   })
 )(App);
