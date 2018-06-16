@@ -6,8 +6,8 @@ import { makeTodoSelector, makeTodosSelector, selectEditId } from "./selectors";
 
 const App = ({
   editId,
-  thisTodo = {},
-  thisTodos = [],
+  todo = {},
+  todos = [],
   addTodo,
   updateTodo,
   edit,
@@ -15,14 +15,14 @@ const App = ({
 }) => (
   <div>
     <input
-      value={thisTodo.text}
+      value={todo.text}
       disabled={editId > -1}
       onChange={({ target }) => updateTodo({ text: target.value })}
       onKeyDown={({ keyCode }) => keyCode !== 13 || addTodo()}
     />
     <button onClick={addTodo}>Add</button>
     <ul>
-      {thisTodos.map((todo, i) => (
+      {todos.map((todo, i) => (
         <li key={i} onDoubleClick={() => editId > -1 || edit(todo.id)}>
           {editId === todo.id ? (
             <input
@@ -43,8 +43,8 @@ const App = ({
 
 export default connect(
   createStructuredSelector({
-    thisTodo: makeTodoSelector(),
-    thisTodos: makeTodosSelector(),
+    todo: makeTodoSelector(),
+    todos: makeTodosSelector(),
     editId: selectEditId
   }),
   dispatch => ({
