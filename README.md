@@ -1,4 +1,4 @@
-# A simple todo async app to demonstrate how we use saga with react and redux.
+# A simple todo async app with redux saga.
 
 # Usage
 
