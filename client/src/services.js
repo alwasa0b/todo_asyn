@@ -1,6 +1,11 @@
+const API_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://stormy-refuge-36759.herokuapp.com/api"
+    : "http://localhost:8081/api";
+
 export const addTodo = async todo => {
   // must match 'Content-Type' header
-  const data = await fetch("http://localhost:8081/api/todos", {
+  const data = await fetch(`${API_URL}/todos`, {
     body: JSON.stringify(todo), // must match 'Content-Type' header
     cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
     credentials: "same-origin", // include, same-origin, *omit
@@ -18,7 +23,7 @@ export const addTodo = async todo => {
 };
 
 export const saveTodo = async todo => {
-  const data = await fetch(`http://localhost:8081/api/todos/${todo.id}`, {
+  const data = await fetch(`${API_URL}/todos/${todo.id}`, {
     body: JSON.stringify(todo), // must match 'Content-Type' header
     cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
     credentials: "same-origin", // include, same-origin, *omit
@@ -36,7 +41,7 @@ export const saveTodo = async todo => {
 };
 
 export const deleteTodo = async id => {
-  const data = await fetch(`http://localhost:8081/api/todos/${id}`, {
+  const data = await fetch(`${API_URL}/todos/${id}`, {
     cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
     credentials: "same-origin", // include, same-origin, *omit
     headers: {
@@ -53,6 +58,6 @@ export const deleteTodo = async id => {
 };
 
 export const getTodos = async () => {
-  const data = await fetch("http://localhost:8081/api/todos");
+  const data = await fetch(`${API_URL}/todos`);
   return data.json();
 };
