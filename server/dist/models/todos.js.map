@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../src/models/todos.js"],"names":["todos"],"mappings":";;;;;AAAA;AACA,IAAMA,QAAQ,EAAd;kBACeA,K","file":"todos.js","sourcesContent":["// our example model is just an Array\r\nconst todos = [];\r\nexport default todos;\r\n"]}
