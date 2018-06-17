@@ -1,7 +1,6 @@
 import resource from "resource-router-middleware";
-import todos from "../models/todos";
 
-export default ({ config, db }) =>
+export default ({ db }) =>
   resource({
     /** Property name to store preloaded entity on `request`. */
     id: "todo",
@@ -10,41 +9,34 @@ export default ({ config, db }) =>
      *  Errors terminate the request, success sets `req[id] = data`.
      */
     load(req, id, callback) {
-      let todo = todos.find(todo => todo.id === id),
-        err = todo ? null : "Not found";
-      callback(err, todo);
+      db.todo.findById(id, (err, todo) => {
+        callback(err, todo);
+      });
     },
 
-    /** GET / - List all entities */
     index({ params }, res) {
-      res.json(todos);
+      db.todo.find({}, function(err, docs) {
+        res.json(docs);
+      });
     },
 
-    /** POST / - Create a new entity */
     create({ body }, res) {
-      body.id = todos.length.toString(36);
-      todos.push(body);
-      res.json(body);
+      const todo = new db.todo({ text: body.text });
+      todo.save((err, created) => res.json(err || created));
     },
 
-    /** GET /:id - Return a given entity */
     read({ todo }, res) {
       res.json(todo);
     },
 
-    /** PUT /:id - Update a given entity */
     update({ todo, body }, res) {
-      for (let key in body) {
-        if (key !== "id") {
-          todo[key] = body[key];
-        }
-      }
-      res.sendStatus(204);
+      todo.text = body.text;
+      todo.save((err, updated) => res.json(err || updated));
     },
 
-    /** DELETE /:id - Delete a given entity */
     delete({ todo }, res) {
-      todos.splice(todos.indexOf(todo), 1);
-      res.sendStatus(204);
+      db.todo.deleteOne({ _id: todo._id }, () => {
+        res.sendStatus(204);
+      });
     }
   });

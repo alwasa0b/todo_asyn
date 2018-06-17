@@ -19,7 +19,7 @@ const makeTodosSelector = () =>
     const todos = state.toJS();
     return Object.keys(todos)
       .map(key => todos[key])
-      .filter(todo => todo.id >= 0);
+      .filter(todo => !(Number(todo.id) < 0));
   });
 
 export {

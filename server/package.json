@@ -12,8 +12,7 @@
     "prestart": "npm run -s build",
     "test": "eslint src",
     "client": "cd ../client && yarn start",
-    "server":
-      "nodemon -w src --exec \"babel-node src --presets es2015,stage-0\"",
+    "server": "nodemon --inspect-brk -w src --exec \"babel-node src --presets es2015,stage-0\"",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
   "eslintConfig": {
@@ -40,7 +39,9 @@
     "body-parser": "^1.13.3",
     "compression": "^1.5.2",
     "cors": "^2.7.1",
+    "dotenv": "^6.0.0",
     "express": "^4.13.3",
+    "mongoose": "^5.1.5",
     "morgan": "^1.8.0",
     "resource-router-middleware": "^0.6.0"
   },
