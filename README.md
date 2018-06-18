@@ -6,6 +6,6 @@
 cd .\client\
 yarn
 cd ..\server
-yarn
-yarn dev
+npm install
+npm run dev
 ```
