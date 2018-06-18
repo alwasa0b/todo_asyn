@@ -1,14 +1,13 @@
 import todoSchema from "./models/todo";
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
-// Connection URL
+
 const url = process.env.DB_URL;
 
-// Use connect method to connect to the server
-var todo = mongoose.model("Todo", todoSchema);
+const todo = mongoose.model("Todo", todoSchema);
 
 export default callback => {
   mongoose.connect(url);

@@ -5,9 +5,6 @@ export default ({ db }) =>
     /** Property name to store preloaded entity on `request`. */
     id: "todo",
 
-    /** For requests with an `id`, you can auto-load the entity.
-     *  Errors terminate the request, success sets `req[id] = data`.
-     */
     load(req, id, callback) {
       db.todo.findById(id, (err, todo) => {
         callback(err, todo);
@@ -31,6 +28,7 @@ export default ({ db }) =>
 
     update({ todo, body }, res) {
       todo.text = body.text;
+      todo.status = body.status;
       todo.save((err, updated) => res.json(err || updated));
     },
 

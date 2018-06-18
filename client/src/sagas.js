@@ -1,8 +1,14 @@
 import { takeEvery, select, call, put } from "redux-saga/effects";
 import { listFetched, fetchList } from "./actions";
-import { makeTodoSelector, makeEditTodoSelector } from "./selectors";
+
+import {
+  makeTodoSelector,
+  makeEditTodoSelector,
+  makeTodoByIdSelector
+} from "./selectors";
+
 import { addTodo, getTodos, saveTodo, deleteTodo } from "./services";
-import { ADD, SAVE, REMOVE, FETCH_LIST } from "./constants";
+import { ADD, SAVE, REMOVE, FETCH_LIST, TOGGLE, ACTIVE, COMPLETED } from "./constants";
 
 export function* addTodoSaga() {
   try {
@@ -44,6 +50,22 @@ export function* fetchListSaga() {
   }
 }
 
+export function* toggleTodoSaga({ id }) {
+  try {
+    const state = yield select();
+    const todo = makeTodoByIdSelector(id)(state);
+
+    yield call(saveTodo, {
+      ...todo,
+      status: todo["status"] === ACTIVE ? COMPLETED : ACTIVE
+    });
+
+    yield put(fetchList());
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export default function*() {
   try {
     const todos = yield call(getTodos);
@@ -52,6 +74,7 @@ export default function*() {
     yield takeEvery(ADD, addTodoSaga);
     yield takeEvery(SAVE, saveTodoSaga);
     yield takeEvery(REMOVE, removeTodoSaga);
+    yield takeEvery(TOGGLE, toggleTodoSaga);
   } catch (error) {
     console.error(error);
   }

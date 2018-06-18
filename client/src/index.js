@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { fromJS } from "immutable";
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
 import { composeWithDevTools } from "redux-devtools-extension";
@@ -15,6 +16,7 @@ const composeEnhancers = composeWithDevTools({});
 
 const store = createStore(
   reducers,
+  fromJS({}),
   composeEnhancers(applyMiddleware(sagaMiddleware))
 );
 

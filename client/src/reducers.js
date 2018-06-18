@@ -1,12 +1,22 @@
 import { fromJS } from "immutable";
-import { UPDATE, LIST_FETCHED, EDIT } from "./constants";
+
+import {
+  UPDATE,
+  LIST_FETCHED,
+  EDIT,
+  ALL,
+  ACTIVE,
+  COMPLETED
+} from "./constants";
+
+import { combineReducers } from "redux-immutable";
 
 const initialState = fromJS({
   todos: { "-1": { id: "-1", text: "" } },
   editId: -1
 });
 
-const todoAppReducer = (state = initialState, action) => {
+const app = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE:
       return state.mergeIn(["todos", action.todo.id], fromJS(action.todo));
@@ -25,4 +35,17 @@ const todoAppReducer = (state = initialState, action) => {
   }
 };
 
-export default todoAppReducer;
+const filter = (state = ALL, action) => {
+  switch (action.type) {
+    case ALL:
+      return ALL;
+    case ACTIVE:
+      return ACTIVE;
+    case COMPLETED:
+      return COMPLETED;
+    default:
+      return state;
+  }
+};
+
+export default combineReducers({ app, filter });
