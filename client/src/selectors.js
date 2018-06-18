@@ -8,7 +8,7 @@ const selectTodos = state => state.getIn(["app", "todos"]);
 const selectFilter = state => state.getIn(["filter"]);
 
 const selectEditedTodo = state =>
-  state.getIn(["app", "todos", state.get("editId")]);
+  state.getIn(["app", "todos", state.getIn(["app", "editId"])]);
 
 const makeTodoSelector = () =>
   createSelector(selectNewTodo, state => state.toJS());
@@ -16,7 +16,7 @@ const makeTodoSelector = () =>
 const makeEditTodoSelector = () =>
   createSelector(selectEditedTodo, state => state.toJS());
 
-const selectEditId = state => state.get("editId");
+const selectEditId = state => state.getIn(["app", "editId"]);
 
 const makeTodosSelector = () =>
   createSelector(selectTodos, state => {
