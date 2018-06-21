@@ -29,8 +29,7 @@ export default ({ db }) =>
     },
 
     delete({ todo }, res) {
-      db.todo.remove();
-      res.sendStatus(204);
+      todo.remove(() => res.sendStatus(204));
     },
 
     toggle({ todo }, res) {
