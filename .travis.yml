@@ -4,6 +4,8 @@ deploy:
   github-token: $GITHUB_TOKEN
   keep-history: true
   language: node_js
+  node_js:
+  - "node"
   before_script: cd client
   on:
     branch: master
