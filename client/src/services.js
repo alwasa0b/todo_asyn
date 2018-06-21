@@ -22,6 +22,23 @@ export const addTodo = async todo => {
   return data.json();
 };
 
+export const toggleTodo = async id => {
+  const data = await fetch(`${API_URL}/todos/toggle/${id}`, {
+    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: "same-origin", // include, same-origin, *omit
+    headers: {
+      "user-agent": "Mozilla/4.0 MDN Example",
+      "content-type": "application/json"
+    },
+    method: "PATCH", // *GET, POST, PUT, DELETE, etc.
+    mode: "cors", // no-cors, cors, *same-origin
+    redirect: "follow", // manual, *follow, error
+    referrer: "no-referrer" // *client, no-referrer
+  });
+
+  return data;
+};
+
 export const saveTodo = async todo => {
   const data = await fetch(`${API_URL}/todos/${todo.id}`, {
     body: JSON.stringify(todo), // must match 'Content-Type' header

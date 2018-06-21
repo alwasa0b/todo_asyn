@@ -2,10 +2,24 @@ import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { add, update, edit, save, remove, toggle } from "./actions";
-import { makeTodoSelector, makeFilteredTodosSelector, selectEditId } from "./selectors";
+import {
+  makeTodoSelector,
+  makeFilteredTodosSelector,
+  selectEditId
+} from "./selectors";
 import Todo from "./Todo";
 import Filter from "./Filter";
 import { COMPLETED } from "./constants";
+import styled from "styled-components";
+
+const Center = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+`;
 
 const App = ({
   editId,
@@ -18,7 +32,7 @@ const App = ({
   remove,
   toggle
 }) => (
-  <div>
+  <Center>
     <input
       value={todo.text}
       disabled={editId > -1}
@@ -26,7 +40,7 @@ const App = ({
       onKeyDown={({ keyCode }) => keyCode !== 13 || addTodo()}
     />
     <button onClick={addTodo}>Add</button>
-    <Filter/>
+    <Filter />
     <ul>
       {todos.map((todo, i) => (
         <Todo
@@ -42,7 +56,7 @@ const App = ({
         />
       ))}
     </ul>
-  </div>
+  </Center>
 );
 
 export default connect(

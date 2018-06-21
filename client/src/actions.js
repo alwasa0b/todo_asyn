@@ -1,30 +1,18 @@
-import {
-  UPDATE,
-  ADD,
-  LIST_FETCHED,
-  EDIT,
-  SAVE,
-  REMOVE,
-  FETCH_LIST,
-  TOGGLE,
-  ALL,
-  ACTIVE,
-  COMPLETED
-} from "./constants";
+import * as constants from "./constants";
 
 export const update = ({ id = "-1", text }) => ({
-  type: UPDATE,
+  type: constants.UPDATE,
   todo: { id, text }
 });
 
-export const add = () => ({ type: ADD });
-export const edit = id => ({ type: EDIT, id });
-export const save = () => ({ type: SAVE });
-export const remove = id => ({ type: REMOVE, id });
-export const toggle = id => ({ type: TOGGLE, id });
-export const fetchList = () => ({ type: FETCH_LIST });
-export const listFetched = todos => ({ type: LIST_FETCHED, todos });
+export const add = () => ({ type: constants.ADD });
+export const edit = id => ({ type: constants.EDIT, id });
+export const save = () => ({ type: constants.SAVE });
+export const remove = id => ({ type: constants.REMOVE, id });
+export const toggle = id => ({ type: constants.TOGGLE, id });
+export const fetchList = () => ({ type: constants.FETCH_LIST });
+export const listFetched = todos => ({ type: constants.LIST_FETCHED, todos });
 
-export const all = () => ({ type: ALL });
-export const active = () => ({ type: ACTIVE });
-export const completed = () => ({ type: COMPLETED });
+export const all = () => ({ type: constants.ALL });
+export const active = () => ({ type: constants.ACTIVE });
+export const completed = () => ({ type: constants.COMPLETED });

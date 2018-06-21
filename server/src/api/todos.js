@@ -5,36 +5,45 @@ export default ({ db }) =>
     /** Property name to store preloaded entity on `request`. */
     id: "todo",
 
-    load(req, id, callback) {
-      db.todo.findById(id, (err, todo) => {
-        callback(err, todo);
-      });
+    async load({}, id, next) {
+      try {
+        const todo = await db.todo.findById(id);
+        next(null, todo);
+      } catch (error) {
+        next(error);
+      }
     },
 
-    index({ params }, res) {
-      db.todo.find({}, function(err, docs) {
-        res.json(docs);
-      });
+    async index({}, res) {
+      const todos = await db.todo.find({});
+      res.json(todos);
     },
 
-    create({ body }, res) {
+    async create({ body }, res) {
       const todo = new db.todo({ text: body.text });
-      todo.save((err, created) => res.json(err || created));
+      const created = await todo.save();
+      res.json(created);
     },
 
     read({ todo }, res) {
       res.json(todo);
     },
 
-    update({ todo, body }, res) {
+    async update({ todo, body }, res) {
       todo.text = body.text;
       todo.status = body.status;
-      todo.save((err, updated) => res.json(err || updated));
+      const updated = await todo.save();
+      res.json(updated);
     },
 
-    delete({ todo }, res) {
-      db.todo.deleteOne({ _id: todo._id }, () => {
-        res.sendStatus(204);
-      });
+    async delete({ todo }, res) {
+      await db.todo.deleteOne({ _id: todo._id });
+      res.sendStatus(204);
+    },
+
+    async toggle({ todo }, res) {
+      todo.status = todo.status === "ACTIVE" ? "COMPLETED" : "ACTIVE";
+      const updated = await todo.save();
+      res.json(updated);
     }
   });

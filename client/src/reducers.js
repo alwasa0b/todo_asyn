@@ -38,11 +38,9 @@ const app = (state = initialState, action) => {
 const filter = (state = ALL, action) => {
   switch (action.type) {
     case ALL:
-      return ALL;
     case ACTIVE:
-      return ACTIVE;
     case COMPLETED:
-      return COMPLETED;
+      return action.type;
     default:
       return state;
   }
