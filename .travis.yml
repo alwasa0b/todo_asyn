@@ -5,7 +5,8 @@ deploy:
   keep-history: true
   language: node_js
   node_js:
-  - "node"
+    - "iojs"
+    - "7"
   before_script: cd client
-  on:
-    branch: master
+on:
+  branch: master
