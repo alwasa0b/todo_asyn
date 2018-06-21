@@ -1,4 +1,5 @@
 import resource from "resource-router-middleware";
+import { toRes } from "../lib/util";
 
 export default ({ db }) =>
   resource({
@@ -10,12 +11,12 @@ export default ({ db }) =>
     },
 
     index({}, res) {
-      db.todo.find({}, (error, todos) => res.json(todos));
+      db.todo.find({}, toRes(res));
     },
 
     create({ body }, res) {
       const todo = new db.todo({ text: body.text });
-      todo.save((error, created) => res.json(created));
+      todo.save(toRes(res));
     },
 
     read({ todo }, res) {
@@ -25,7 +26,7 @@ export default ({ db }) =>
     update({ todo, body }, res) {
       todo.text = body.text;
       todo.status = body.status;
-      todo.save((error, updated) => res.json(updated));
+      todo.save(toRes(res));
     },
 
     delete({ todo }, res) {
@@ -34,6 +35,6 @@ export default ({ db }) =>
 
     toggle({ todo }, res) {
       todo.status = todo.status === "ACTIVE" ? "COMPLETED" : "ACTIVE";
-      todo.save((error, toggled) => res.json(toggled));
+      todo.save(toRes(res));
     }
   });
