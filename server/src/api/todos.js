@@ -5,45 +5,36 @@ export default ({ db }) =>
     /** Property name to store preloaded entity on `request`. */
     id: "todo",
 
-    async load({}, id, next) {
-      try {
-        const todo = await db.todo.findById(id);
-        next(null, todo);
-      } catch (error) {
-        next(error);
-      }
+    load({}, id, next) {
+      db.todo.findById(id, next);
     },
 
-    async index({}, res) {
-      const todos = await db.todo.find({});
-      res.json(todos);
+    index({}, res) {
+      db.todo.find({}, (error, todos) => res.json(todos));
     },
 
-    async create({ body }, res) {
+    create({ body }, res) {
       const todo = new db.todo({ text: body.text });
-      const created = await todo.save();
-      res.json(created);
+      todo.save((error, created) => res.json(created));
     },
 
     read({ todo }, res) {
       res.json(todo);
     },
 
-    async update({ todo, body }, res) {
+    update({ todo, body }, res) {
       todo.text = body.text;
       todo.status = body.status;
-      const updated = await todo.save();
-      res.json(updated);
+      todo.save((error, updated) => res.json(updated));
     },
 
-    async delete({ todo }, res) {
-      await db.todo.deleteOne({ _id: todo._id });
+    delete({ todo }, res) {
+      db.todo.remove();
       res.sendStatus(204);
     },
 
-    async toggle({ todo }, res) {
+    toggle({ todo }, res) {
       todo.status = todo.status === "ACTIVE" ? "COMPLETED" : "ACTIVE";
-      const updated = await todo.save();
-      res.json(updated);
+      todo.save((error, toggled) => res.json(toggled));
     }
   });
