@@ -34,7 +34,7 @@ const App = ({
 }) => (
   <Center>
     <input
-      value={todo.text}
+      value={"updating"}
       disabled={editId > -1}
       onChange={({ target }) => update({ text: target.value })}
       onKeyDown={({ keyCode }) => keyCode !== 13 || addTodo()}
