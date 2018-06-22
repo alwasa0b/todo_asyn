@@ -1,4 +1,4 @@
 before_script: cd client
 language: node_js
-after_success:
-- npm run build && node .\node_modules\gh-pages\bin\gh-pages.js -d build
+script:
+  - bash deploy.sh
