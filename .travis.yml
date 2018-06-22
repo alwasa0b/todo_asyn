@@ -1,5 +1,8 @@
 before_deploy: cd client
 language: node_js
+node_js:
+    - "iojs"
+    - "7"
 deploy:
   provider: pages
   skip_cleanup: true
