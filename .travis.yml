@@ -1,14 +1,10 @@
+before_script: cd client
 before_deploy: cd client
-language: node_js
-node_js:
-    - "iojs"
-    - "7"
 deploy:
   provider: pages
   skip_cleanup: true
   local_dir: build/
   github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
-  keep-history: true
   on:
     branch: master
-
+language: node_js
