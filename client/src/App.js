@@ -34,7 +34,7 @@ const App = ({
 }) => (
   <Center>
     <input
-      value={"updating"}
+      value={todo.text}
       disabled={editId > -1}
       onChange={({ target }) => update({ text: target.value })}
       onKeyDown={({ keyCode }) => keyCode !== 13 || addTodo()}
@@ -46,7 +46,7 @@ const App = ({
         <Todo
           key={i}
           editing={editId === todo.id}
-          text={todo.text}
+          text={"updating"}
           save={save}
           update={({ target }) => update({ text: target.value, id: todo.id })}
           remove={() => remove(todo.id)}
