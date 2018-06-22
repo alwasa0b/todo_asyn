@@ -1,9 +1,9 @@
 before_script: cd client
 deploy:
   provider: pages
-  skip_cleanup: true
-  local_dir: client/build/
-  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep-history: true
   on:
     branch: master
 language: node_js
