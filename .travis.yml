@@ -1,3 +1,4 @@
+before_script: cd client
 deploy:
   provider: pages
   skip_cleanup: true
