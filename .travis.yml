@@ -1,6 +1,4 @@
-before_script:
-  - cd client
-  - github_token: $GITHUB_TOKEN
+before_script: cd client
 language: node_js
 node_js:
   - "stable"
@@ -13,7 +11,7 @@ script:
 deploy:
   provider: pages
   skip_cleanup: true
-  
+  github_token: $GITHUB_TOKEN
   local_dir: client/build
   on:
     branch: master
