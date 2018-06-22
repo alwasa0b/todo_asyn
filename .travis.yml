@@ -1,4 +1,5 @@
 before_script: cd client
+before_deploy: npm run build
 deploy:
   provider: pages
   skip_cleanup: true
