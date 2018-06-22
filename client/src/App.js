@@ -46,7 +46,7 @@ const App = ({
         <Todo
           key={i}
           editing={editId === todo.id}
-          text={todo.text}
+          text={"todo.text"}
           save={save}
           update={({ target }) => update({ text: target.value, id: todo.id })}
           remove={() => remove(todo.id)}
